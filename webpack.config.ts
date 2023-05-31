@@ -1,6 +1,7 @@
 import path from 'path'
 
 import {
+  BuildEnv,
   BuildMode,
   BuildOptions,
   BuildPaths,
@@ -13,13 +14,16 @@ const paths: BuildPaths = {
   html: path.resolve(__dirname, 'public', 'index.html'),
 }
 
-const mode: BuildMode = 'development'
-const isDev = mode === 'development'
+module.exports = (env: BuildEnv) => {
+  const mode: BuildMode = env.mode || 'development'
+  const PORT = env.port || 3000
+  const isDev = mode === 'development'
 
-const options: BuildOptions = {
-  mode,
-  paths,
-  isDev,
+  const options: BuildOptions = {
+    mode,
+    paths,
+    isDev,
+    port: PORT,
+  }
+  return buildWebpackConfig(options)
 }
-
-module.exports = buildWebpackConfig(options)
