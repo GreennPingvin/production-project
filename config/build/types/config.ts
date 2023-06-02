@@ -1,6 +1,7 @@
 export type BuildMode = 'development' | 'production'
 
 export interface BuildPaths {
+  src: string
   entry: string
   output: string
   html: string
